@@ -64,6 +64,7 @@ func main() {
 		if len(os.Args) < 3 {
 			Install(GetLatestVersion())
 		} else {
+			//if ValidateVersion(os.Args[2]) {}
 			Install(os.Args[2])
 		}
 	case "select":
@@ -71,10 +72,19 @@ func main() {
 			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run tfvm list.")
 			os.Exit(0)
 		} else {
+			//if ValidateVersion(os.Args[2]) {}
 			Select(os.Args[2])
 		}
 	case "list":
 		List()
+	case "remove":
+		if len(os.Args) < 3 {
+			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run tfvm list.")
+			os.Exit(0)
+		} else {
+			//if ValidateVersion(os.Args[2]) {}
+			Remove(os.Args[2])
+		}
 	default:
 		Help()
 	}
@@ -126,23 +136,27 @@ func Install(version string) {
 }
 
 func Select(version string) {
-	_, err := os.Stat(binPath + "/terraform")
-	if os.IsNotExist(err) {
-		err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("Now using terraform v%s!", version)
+	if version == currentVersion {
+		os.Exit(0)
 	} else {
-		err = os.Remove(binPath + "/terraform")
-		if err != nil {
-			panic(err)
-		} else {
+		_, err := os.Stat(binPath + "/terraform")
+		if os.IsNotExist(err) {
 			err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
 			if err != nil {
 				panic(err)
 			}
 			fmt.Printf("Now using terraform v%s!", version)
+		} else {
+			err = os.Remove(binPath + "/terraform")
+			if err != nil {
+				panic(err)
+			} else {
+				err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
+				if err != nil {
+					panic(err)
+				}
+				fmt.Printf("Now using terraform v%s!", version)
+			}
 		}
 	}
 
@@ -165,6 +179,28 @@ func List() {
 	}
 
 	os.Exit(0)
+}
+
+func Remove(version string) {
+	if version == currentVersion {
+		err := os.Remove(binPath + "/terraform")
+		if err != nil {
+			panic(err)
+		}
+		err = os.Remove(installPath + "/terraform" + version)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Terraform v%s was successfully removed.", version)
+	} else {
+		err := os.Remove(installPath + "/terraform" + version)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Terraform v%s was successfully removed.", version)
+	}
 }
 
 func DownloadZip(url string) error {
