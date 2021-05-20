@@ -9,8 +9,10 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -19,6 +21,8 @@ import (
 var basePath = os.Getenv("HOME") + "/.tfvm"
 var installPath = basePath + "/versions"
 var binPath = basePath + "/bin"
+
+var currentVersion string
 
 func init() {
 	// Create file structure if needed
@@ -33,6 +37,18 @@ func init() {
 	if _, err := os.Stat(binPath); os.IsNotExist(err) {
 		os.Mkdir(binPath, 0755)
 	}
+
+	// Find current terraform version
+	if _, err := os.Stat(binPath + "/terraform"); os.IsNotExist(err) {
+		currentVersion = ""
+	} else {
+		out, err := exec.Command(binPath+"/terraform", "-v").Output()
+		if err != nil {
+			panic(err)
+		}
+		tmp := strings.Split(string(out), "v")[1]
+		currentVersion = strings.Split(tmp, "\n")[0]
+	}
 }
 
 func main() {
@@ -42,6 +58,7 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Parse input
 	switch os.Args[1] {
 	case "install":
 		if len(os.Args) < 3 {
@@ -52,8 +69,12 @@ func main() {
 	case "select":
 		if len(os.Args) < 3 {
 			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run tfvm list.")
+			os.Exit(0)
+		} else {
+			Select(os.Args[2])
 		}
-		SetTerraformVersion(os.Args[2])
+	case "list":
+		List()
 	default:
 		Help()
 	}
@@ -80,7 +101,7 @@ func Install(version string) {
 	fmt.Printf("Installing terraform v%s...\n", version)
 	// Download terraform zip
 	fmt.Printf("Downloading terraform v%s from %s\n", version, url)
-	err = DownloadTerraform(url)
+	err = DownloadZip(url)
 	if err != nil {
 		panic(err)
 	}
@@ -100,30 +121,65 @@ func Install(version string) {
 		panic(err)
 	}
 	// Set selected version to the newly installed bin
-	err = SetTerraformVersion(version)
-	if err != nil {
-		panic(err)
+	Select(version)
+	os.Exit(0)
+}
+
+func Select(version string) {
+	_, err := os.Stat(binPath + "/terraform")
+	if os.IsNotExist(err) {
+		err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("Now using terraform v%s!", version)
+	} else {
+		err = os.Remove(binPath + "/terraform")
+		if err != nil {
+			panic(err)
+		} else {
+			err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
+			if err != nil {
+				panic(err)
+			}
+			fmt.Printf("Now using terraform v%s!", version)
+		}
 	}
 
 	os.Exit(0)
 }
 
-func DownloadTerraform(url string) error {
-	// Get data
+func List() {
+	files, err := ioutil.ReadDir(installPath)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, f := range files {
+		version := strings.Trim(f.Name(), "terraform")
+		if version == currentVersion {
+			fmt.Printf("* " + version + "\n")
+		} else {
+			fmt.Printf("  " + version + "\n")
+		}
+	}
+
+	os.Exit(0)
+}
+
+func DownloadZip(url string) error {
 	response, err := http.Get(url)
 	if err != nil {
 		return err
 	}
 	defer response.Body.Close()
 
-	// Create file
 	out, err := os.Create("/tmp/tfvm.zip")
 	if err != nil {
 		return err
 	}
 	defer out.Close()
 
-	// Write body to file
 	_, err = io.Copy(out, response.Body)
 	return err
 }
@@ -175,33 +231,13 @@ func Unzip(src string, dest string) error {
 	return nil
 }
 
-func SetTerraformVersion(version string) error {
-	_, err := os.Stat(binPath + "/terraform")
-	if os.IsNotExist(err) {
-		err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
-		if err != nil {
-			return err
-		}
-		fmt.Printf("Now using terraform v%s!", version)
-	} else {
-		err = os.Remove(binPath + "/terraform")
-		if err != nil {
-			return err
-		} else {
-			err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
-			if err != nil {
-				return err
-			}
-			fmt.Printf("Now using terraform v%s!", version)
-		}
-	}
-
-	return nil
-}
-
 func GetLatestVersion() string {
 	return "0.13.5"
 }
+
+//func ValidateVersion(version string) bool {
+//
+//}
 
 func GetArchitecture() string {
 	var arch string
