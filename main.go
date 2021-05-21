@@ -16,12 +16,13 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 var basePath = os.Getenv("HOME") + "/.tfvm"
 var installPath = basePath + "/versions"
 var binPath = basePath + "/bin"
-
 var currentVersion string
 
 func init() {
@@ -63,27 +64,52 @@ func main() {
 	case "install":
 		if len(os.Args) < 3 {
 			Install(GetLatestVersion())
+		} else if os.Args[2] == "list" {
+			versions := GetAvailableVersions()
+			for i := 0; i < len(versions); i++ {
+				fmt.Println(versions[i])
+			}
 		} else {
-			//if ValidateVersion(os.Args[2]) {}
-			Install(os.Args[2])
+			if IsAvailableVersion(os.Args[2]) {
+				Install(os.Args[2])
+			} else {
+				fmt.Printf("Please enter a valid terraform version. For a list of available versions, run `tfvm install list`.")
+			}
 		}
 	case "select":
 		if len(os.Args) < 3 {
-			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run tfvm list.")
+			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
 			os.Exit(0)
 		} else {
-			//if ValidateVersion(os.Args[2]) {}
-			Select(os.Args[2])
+			if IsInstalledVersion(os.Args[2]) {
+				Select(os.Args[2])
+			} else {
+				fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
+				os.Exit(0)
+			}
 		}
 	case "list":
-		List()
+		versions := GetInstalledVersions()
+		for i := 0; i < len(versions); i++ {
+			if versions[i] == currentVersion {
+				fmt.Println("* " + versions[i])
+			} else {
+				fmt.Println("  " + versions[i])
+			}
+		}
+		os.Exit(0)
 	case "remove":
 		if len(os.Args) < 3 {
-			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run tfvm list.")
+			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
 			os.Exit(0)
 		} else {
-			//if ValidateVersion(os.Args[2]) {}
-			Remove(os.Args[2])
+			if IsInstalledVersion(os.Args[2]) {
+				Remove(os.Args[2])
+				os.Exit(0)
+			} else {
+				fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
+				os.Exit(0)
+			}
 		}
 	default:
 		Help()
@@ -163,7 +189,9 @@ func Select(version string) {
 	os.Exit(0)
 }
 
-func List() {
+func GetInstalledVersions() []string {
+	var versions []string
+
 	files, err := ioutil.ReadDir(installPath)
 	if err != nil {
 		panic(err)
@@ -171,14 +199,10 @@ func List() {
 
 	for _, f := range files {
 		version := strings.Trim(f.Name(), "terraform")
-		if version == currentVersion {
-			fmt.Printf("* " + version + "\n")
-		} else {
-			fmt.Printf("  " + version + "\n")
-		}
+		versions = append(versions, version)
 	}
 
-	os.Exit(0)
+	return versions
 }
 
 func Remove(version string) {
@@ -268,12 +292,53 @@ func Unzip(src string, dest string) error {
 }
 
 func GetLatestVersion() string {
-	return "0.13.5"
+	return GetAvailableVersions()[0]
 }
 
-//func ValidateVersion(version string) bool {
-//
-//}
+func GetAvailableVersions() []string {
+	var versions []string
+	url := "https://releases.hashicorp.com/terraform/"
+
+	response, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(response.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	doc.Find("a[href]").Each(func(index int, item *goquery.Selection) {
+		if strings.Contains(item.Text(), "terraform") {
+			version := strings.Split(item.Text(), "_")[1]
+			versions = append(versions, version)
+		}
+	})
+
+	return versions
+}
+
+func IsAvailableVersion(version string) bool {
+	versions := GetAvailableVersions()
+	for _, v := range versions {
+		if v == version {
+			return true
+		}
+	}
+	return false
+}
+
+func IsInstalledVersion(version string) bool {
+	versions := GetInstalledVersions()
+	for _, v := range versions {
+		if v == version {
+			return true
+		}
+	}
+	return false
+}
 
 func GetArchitecture() string {
 	var arch string
