@@ -8,6 +8,7 @@
 
 - [tfvm](#tfvm)
   - [Table of Contents](#table-of-contents)
+  - [Changelog](#changelog)
   - [How it Works](#how-it-works)
   - [Getting Started](#getting-started)
     - [Intallation](#installation)
@@ -16,6 +17,9 @@
     - [Development](#development)
   - [TODO](#todo)
 
+## Changelog
+
+See the [CHANGELOG](https://github.com/ethanhassett/tfvm/blob/main/CHANGELOG.md)
 
 ## How it Works
 
