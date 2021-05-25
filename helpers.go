@@ -25,6 +25,7 @@ func getInstalledVersions() ([]string, error) {
 	}
 	for _, f := range files {
 		v := strings.TrimPrefix(f.Name(), "terraform")
+		v = strings.TrimSuffix(v, extension)
 		versions = append(versions, v)
 	}
 
@@ -98,7 +99,16 @@ func getArchitecture() (string, error) {
 	var arch string = ""
 	var err error = nil
 
-	if runtime.GOOS == "linux" {
+	if runtime.GOOS == "windows" {
+		switch runtime.GOARCH {
+		case "386":
+			arch = "windows_386"
+		case "amd64":
+			arch = "windows_amd64"
+		default:
+			err = errors.New("architecture could not be verified for installation")
+		}
+	} else if runtime.GOOS == "linux" {
 		switch runtime.GOARCH {
 		case "386":
 			arch = "linux_386"
@@ -125,7 +135,7 @@ func downloadArchive(url string) error {
 	}
 	defer resp.Body.Close()
 
-	out, err := os.Create("/tmp/tfvm.zip")
+	out, err := os.Create(zipPath)
 	if err != nil {
 		return err
 	}

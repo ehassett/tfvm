@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func install(version string) {
-	_, err := os.Stat(installPath + "/terraform" + version)
+	_, err := os.Stat(installPath + string(filepath.Separator) + "terraform" + version + extension)
 	if !os.IsNotExist(err) {
 		fmt.Printf("Terraform v%s is already installed. Run `tfvm select %s` to use this version.", version, version)
 		os.Exit(0)
@@ -38,17 +39,17 @@ func install(version string) {
 	}
 
 	fmt.Println("Extracting archive...")
-	err = unzipArchive("/tmp/tfvm.zip", installPath)
+	err = unzipArchive(zipPath, installPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v", err)
 		os.Exit(1)
 	}
-	err = os.Remove("/tmp/tfvm.zip")
+	err = os.Remove(zipPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v", err)
 		os.Exit(1)
 	}
-	err = os.Rename(installPath+"/terraform", installPath+"/terraform"+version)
+	err = os.Rename(installPath+string(filepath.Separator)+"terraform"+extension, installPath+string(filepath.Separator)+"terraform"+version+extension)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v", err)
 		os.Exit(1)
@@ -60,7 +61,7 @@ func install(version string) {
 }
 
 func selectVersion(version string) {
-	valid, err := isInstalledVersion(os.Args[2])
+	valid, err := isInstalledVersion(version)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
@@ -74,15 +75,15 @@ func selectVersion(version string) {
 		fmt.Printf("Terraform %s already in use!", version)
 		os.Exit(0)
 	}
-	_, err = os.Stat(binPath + "/terraform")
+	_, err = os.Stat(binPath + string(filepath.Separator) + "terraform" + extension)
 	if !os.IsNotExist(err) {
-		err = os.Remove(binPath + "/terraform")
+		err = os.Remove(binPath + string(filepath.Separator) + "terraform" + extension)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			os.Exit(1)
 		}
 	}
-	err = os.Symlink(installPath+"/terraform"+version, binPath+"/terraform")
+	err = os.Link(installPath+string(filepath.Separator)+"terraform"+version+extension, binPath+string(filepath.Separator)+"terraform"+extension)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
@@ -92,7 +93,7 @@ func selectVersion(version string) {
 }
 
 func remove(version string) {
-	valid, err := isInstalledVersion(os.Args[2])
+	valid, err := isInstalledVersion(version)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
@@ -102,14 +103,14 @@ func remove(version string) {
 		os.Exit(0)
 	}
 
-	err = os.Remove(installPath + "/terraform" + version)
+	err = os.Remove(installPath + string(filepath.Separator) + "terraform" + version + extension)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
 
 	if version == currentVersion {
-		err := os.Remove(binPath + "/terraform")
+		err := os.Remove(binPath + string(filepath.Separator) + "terraform")
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			os.Exit(1)

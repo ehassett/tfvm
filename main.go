@@ -1,18 +1,40 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"runtime"
 	"strings"
 )
 
-var basePath = os.Getenv("HOME") + "/.tfvm"
-var installPath = basePath + "/versions"
-var binPath = basePath + "/bin"
-var currentVersion string
+var currentVersion, basePath, installPath, binPath, zipPath, extension string
 
 func init() {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v", err)
+		os.Exit(1)
+	}
+	basePath = home + string(filepath.Separator) + ".tfvm"
+	installPath = basePath + string(filepath.Separator) + "versions"
+	binPath = basePath + string(filepath.Separator) + "bin"
+	zipPath = basePath + string(filepath.Separator) + "tfvm.zip"
+
+	switch runtime.GOOS {
+	case "windows":
+		extension = ".exe"
+	case "linux":
+		extension = ""
+	default:
+		extension = ""
+		err := errors.New("operating system could not be verified")
+		fmt.Fprintf(os.Stderr, "error: %v", err)
+		os.Exit(1)
+	}
+
 	if _, err := os.Stat(basePath); os.IsNotExist(err) {
 		os.Mkdir(basePath, 0755)
 	}
@@ -23,10 +45,10 @@ func init() {
 		os.Mkdir(binPath, 0755)
 	}
 
-	if _, err := os.Stat(binPath + "/terraform"); os.IsNotExist(err) {
+	if _, err := os.Stat(binPath + string(filepath.Separator) + "terraform" + extension); os.IsNotExist(err) {
 		currentVersion = ""
 	} else {
-		out, err := exec.Command(binPath+"/terraform", "-v").Output()
+		out, err := exec.Command(binPath+string(filepath.Separator)+"terraform"+extension, "-v").Output()
 		if err != nil {
 			panic(err)
 		}
