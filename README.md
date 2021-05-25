@@ -1,5 +1,7 @@
 # tfvm
 
+[![MIT License](https://img.shields.io/github/license/ethanhassett/tfvm?style=flat-square)](https://github.com/ethanhassett/tfvm/blob/main/LICENSE)
+
 > A Terraform Version Manager written in Go
 
 ## Table of Contents
