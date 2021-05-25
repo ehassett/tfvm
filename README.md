@@ -11,7 +11,7 @@
   - [Changelog](#changelog)
   - [How it Works](#how-it-works)
   - [Getting Started](#getting-started)
-    - [Intallation](#installation)
+    - [Installation](#installation)
     - [CLI Usage](#cli-usage)
   - [Contributing](#contributing)
     - [Development](#development)
@@ -28,7 +28,10 @@ tfvm installs and manages different versions of terraform in the CLI.
 ## Getting Started
 ### Installation
 
-Download the appropriate package from [GitHub](https://github.com/ethanhassett/tfvm/releases) and add it to PATH. A proper installation script is in the works.
+Download the appropriate package from [GitHub](https://github.com/ethanhassett/tfvm/releases) and add it to PATH.
+tfvm creates a shim binary in `<USER_HOME>/.tfvm/bin`. This directory will also need added to PATH to use `terraform`.
+
+A proper installation script is in the works.
 
 Run `tfvm` to verify installation.
 
