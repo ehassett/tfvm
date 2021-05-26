@@ -60,7 +60,7 @@ Usage: tfvm install [version]
 	If no version is specified, tfvm will default to the latest available version.
 
 	For a list of available versions, run:
-  	terraform install --list
+  	tfvm install --list
 
 	Options:
 		--list, -l	List available versions of Terraform

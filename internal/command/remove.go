@@ -42,7 +42,7 @@ Usage: tfvm remove <version>
 	Removes a specific Terraform version from the system.
 
 	For a list of installed versions, run:
-		terraform list
+		tfvm list
 	`
 
 	return strings.TrimSpace(helpText)

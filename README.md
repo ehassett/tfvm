@@ -1,5 +1,6 @@
 # tfvm
 
+[![Version](https://img.shields.io/github/v/release/ethanhassett/tfvm?style=flat-square)](https://github.com/ethanhassett/tfvm/releases)
 [![MIT License](https://img.shields.io/github/license/ethanhassett/tfvm?style=flat-square)](https://github.com/ethanhassett/tfvm/blob/main/LICENSE)
 
 > A Terraform Version Manager written in Go
@@ -8,6 +9,7 @@
 
 - [tfvm](#tfvm)
   - [Table of Contents](#table-of-contents)
+  - [Features](#features)
   - [Changelog](#changelog)
   - [How it Works](#how-it-works)
   - [Getting Started](#getting-started)
@@ -16,6 +18,11 @@
   - [Contributing](#contributing)
     - [Development](#development)
   - [TODO](#todo)
+
+## Features
+
+- Easily manage multiple terraform versions to use across projects.
+- Run `tfvm use` with no version argument to switch to the version specified in the current directory's `.tfversion` file.
 
 ## Changelog
 
@@ -38,20 +45,15 @@ Run `tfvm` to verify installation.
 ### CLI Usage
 
 ```
-$ tfvm help
+$ tfvm --help
 
-tfvm usage:
-  help
-    tfvm help - Shows this help text.
-  install
-    tfvm install [version] - Installs terraform. If no version is specified, the latest will be installed.
-    tfvm install list - Lists the available terraform versions.
-  list
-    tfvm list - Lists all installed terraform versions. The current version is indicated with a *.
-  remove
-    tfvm remove <version> - Uninstalls the specified terraform version.
-  select
-    tfvm select <version> - Selects the specified terraform version to be used.
+Usage: tfvm [--version] [--help] <command> [<args>]
+
+Available commands are:
+    install    Install a version of Terraform
+    list       List all installed versions of Terraform
+    remove     Remove a specific version of Terraform
+    use        Select a version of Terraform to use
 ```
 
 ## Contributing
@@ -62,7 +64,7 @@ Contributions to this project are welcome and much appreciated!
 
 1. Use Golang version `>= 1.16`
 2. Fork [this repo](https://github.com/ethanhassett/tfvm)
-3. Create a `feat:` branch
+3. Create a `feat-` branch
 4. Commit and push your changes
 5. Open a Pull Request, rebasing against `main` if needed.
 
@@ -70,5 +72,6 @@ Bugs, feaure requests, and comments are more than welcome in the [issues].
 
 ## TODO
 
+- [x] Add ability to use .tfversion file
 - [ ] Add installation script
 - [ ] Add pagination to `tfvm install list`
