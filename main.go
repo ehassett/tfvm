@@ -8,11 +8,28 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/mitchellh/cli"
 )
 
-var currentVersion, basePath, installPath, binPath, zipPath, extension string
+var appVersion string = "0.2.0"
+
+func main() {
+	c := cli.NewCLI("tfvm", appVersion)
+	c.Args = os.Args[1:]
+	c.Commands = Commands
+
+	exitStatus, err := c.Run()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v", err)
+	}
+	os.Exit(exitStatus)
+}
 
 func init() {
+	var terraformVersion, basePath, installPath, binPath, tempPath, extension string
+
+	// Determine paths and extensions based on OS.
 	home, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v", err)
@@ -21,7 +38,7 @@ func init() {
 	basePath = home + string(filepath.Separator) + ".tfvm"
 	installPath = basePath + string(filepath.Separator) + "versions"
 	binPath = basePath + string(filepath.Separator) + "bin"
-	zipPath = basePath + string(filepath.Separator) + "tfvm.zip"
+	tempPath = basePath + string(filepath.Separator) + "tfvm.zip"
 
 	switch runtime.GOOS {
 	case "windows":
@@ -35,6 +52,7 @@ func init() {
 		os.Exit(1)
 	}
 
+	// Create directory structure if needed.
 	if _, err := os.Stat(basePath); os.IsNotExist(err) {
 		os.Mkdir(basePath, 0755)
 	}
@@ -45,61 +63,18 @@ func init() {
 		os.Mkdir(binPath, 0755)
 	}
 
+	// Set current Terraform version if set.
 	if _, err := os.Stat(binPath + string(filepath.Separator) + "terraform" + extension); os.IsNotExist(err) {
-		currentVersion = ""
+		terraformVersion = ""
 	} else {
 		out, err := exec.Command(binPath+string(filepath.Separator)+"terraform"+extension, "-v").Output()
 		if err != nil {
 			panic(err)
 		}
 		tmp := strings.Split(string(out), "v")[1]
-		currentVersion = strings.Split(tmp, "\n")[0]
-	}
-}
-
-func main() {
-	if len(os.Args) < 2 {
-		help()
+		terraformVersion = strings.Split(tmp, "\n")[0]
 	}
 
-	switch os.Args[1] {
-	case "install":
-		if len(os.Args) < 3 {
-			latest, err := getLatestVersion()
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "error: %v\n", err)
-				os.Exit(1)
-			}
-			install(latest)
-		}
-
-		if os.Args[2] == "list" {
-			versions, err := getAvailableVersions()
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "error: %v\n", err)
-				os.Exit(1)
-			}
-			for i := 0; i < len(versions); i++ {
-				fmt.Println(versions[i])
-			}
-			os.Exit(0)
-		}
-		install(os.Args[2])
-	case "select":
-		if len(os.Args) < 3 {
-			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
-			os.Exit(0)
-		}
-		selectVersion(os.Args[2])
-	case "remove":
-		if len(os.Args) < 3 {
-			fmt.Printf("Please enter a valid terraform version. For a list of installed versions, run `tfvm list`.")
-			os.Exit(0)
-		}
-		remove(os.Args[2])
-	case "list":
-		list()
-	default:
-		help()
-	}
+	// Pass initialized values to initCommands for Meta.
+	initCommands(terraformVersion, installPath, binPath, tempPath, extension)
 }
