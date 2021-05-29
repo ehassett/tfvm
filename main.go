@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-var appVersion string = "0.2.0"
+var appVersion string = "0.3.1"
 
 func main() {
 	c := cli.NewCLI("tfvm", appVersion)
