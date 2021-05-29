@@ -1,4 +1,12 @@
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.3.0&sourceBranch=refs%2Ftags%2F0.3.1) - 2021-05-29
+
+### Fix
+
+- Bump missed version in main.go
+
+
 <a name="0.3.0"></a>
 ## [0.3.0](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.2.0&sourceBranch=refs%2Ftags%2F0.3.0) - 2021-05-29
 
