@@ -3,7 +3,7 @@ on:
     types: [created]
     
 jobs:
-  releases-matrix:
+  release:
     name: Release Go Binaries
     runs-on: ubuntu-latest
     strategy:
@@ -25,3 +25,25 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: "https://dl.google.com/go/go1.16.4.linux-amd64.tar.gz"
         extra_files: LICENSE README.md
+
+  update-manifest:
+    name: Update Scoop Bucket Manifest
+    needs: release
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Update manifest using checkver script
+        run: |
+          git clone https://github.com/lukesampson/scoop.git
+          .\scoop\bin\checkver.ps1 tfvm -u -Dir .
+      - name: Commit and push manifest
+        run: |
+          git config --global user.name 'Ethan Hassett'
+          git config --global user.email 'ethanhassett@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.RELEASES_GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add tfvm.json
+          git commit -m "Update manifest"
+          git push origin HEAD:main

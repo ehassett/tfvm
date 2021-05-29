@@ -35,10 +35,17 @@ tfvm installs and manages different versions of terraform in the CLI.
 ## Getting Started
 ### Installation
 
-Download the appropriate package from [GitHub](https://github.com/ethanhassett/tfvm/releases) and add it to PATH.
-tfvm creates a shim binary in `<USER_HOME>/.tfvm/bin`. This directory will also need added to PATH to use `terraform`.
+Windows users can install via [scoop](https://scoop.sh).
+```PowerShell
+scoop bucket add tfvm https://github.com/ethanhassett/tfvm
+scoop install tfvm
+```
 
-A proper installation script is in the works.
+Linux users:
+Download the appropriate package from [GitHub](https://github.com/ethanhassett/tfvm/releases) and add it to PATH.
+tfvm creates a shim binary in `~/.tfvm/bin`. This directory will also need added to PATH to use `terraform`.
+
+A proper installation method is in the works.
 
 Run `tfvm` to verify installation.
 
@@ -73,5 +80,5 @@ Bugs, feaure requests, and comments are more than welcome in the [issues].
 ## TODO
 
 - [x] Add ability to use .tfversion file
-- [ ] Add installation script
+- [ ] Add installation methods
 - [ ] Add pagination to `tfvm install list`
