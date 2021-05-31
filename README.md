@@ -47,6 +47,12 @@ wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh
 ```
 Running the install script after installation will keep tfvm updated.
 
+Using `go get`:
+```bash
+go get -u github.com/ethanhassett/tfvm
+```
+This will require manually adding `<USER_HOME>/.tfvm` to PATH.
+
 Run `tfvm --version` to verify installation.
 
 ### CLI Usage
@@ -80,5 +86,5 @@ Bugs, feaure requests, and comments are more than welcome in the [issues].
 ## TODO
 
 - [x] Add ability to use .tfversion file
-- [ ] Add installation methods
+- [x] Add installation methods
 - [ ] Add pagination to `tfvm install list`
