@@ -81,7 +81,7 @@ Contributions to this project are welcome and much appreciated!
 4. Commit and push your changes
 5. Open a Pull Request, rebasing against `main` if needed.
 
-Bugs, feaure requests, and comments are more than welcome in the [issues].
+Bugs, feaure requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
 
 ## TODO
 

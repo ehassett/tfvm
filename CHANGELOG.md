@@ -1,6 +1,6 @@
 
 <a name="0.4.0"></a>
-## [0.4.0](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.3.1&sourceBranch=refs%2Ftags%2F0.4.0) - 2021-05-31
+## [0.4.0](https://github.com/ethanhassett/tfvm/compare/0.3.1...0.4.0) - 2021-05-31
 
 ### Feat
 
@@ -14,11 +14,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#3](https://github.com/ethanhassett/tfvm/issues/3) from ethanhassett/release-0.4.0
+- Merge pull request [#3](https://github.com/ethanhassett/tfvm/issues/3) from ethanhassett/release-0.4.0
 
 
 <a name="0.3.1"></a>
-## [0.3.1](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.3.0&sourceBranch=refs%2Ftags%2F0.3.1) - 2021-05-29
+## [0.3.1](https://github.com/ethanhassett/tfvm/compare/0.3.0...0.3.1) - 2021-05-29
 
 ### Fix
 
@@ -26,7 +26,7 @@
 
 
 <a name="0.3.0"></a>
-## [0.3.0](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.2.0&sourceBranch=refs%2Ftags%2F0.3.0) - 2021-05-29
+## [0.3.0](https://github.com/ethanhassett/tfvm/compare/0.2.0...0.3.0) - 2021-05-29
 
 ### Feat
 
@@ -34,7 +34,11 @@
 
 
 <a name="0.2.0"></a>
-## [0.2.0](https://github.com/ethanhassett/tfvm/compare/diff?targetBranch=refs%sFtags%2F0.1.0&sourceBranch=refs%2Ftags%2F0.2.0) - 2021-05-26
+## [0.2.0](https://github.com/ethanhassett/tfvm/compare/0.1.0...0.2.0) - 2021-05-26
+
+### Feat
+
+- Switch to using a command factory structure
 
 
 <a name="0.1.0"></a>
@@ -42,5 +46,5 @@
 
 ### Release
 
-- Milestone 1 ([#1](https://github.com/ethanhassett/tfvm/issues/1))
+- Initial release
 

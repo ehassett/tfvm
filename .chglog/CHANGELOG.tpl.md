@@ -1,6 +1,6 @@
 {{ range .Versions }}
 <a name="{{ .Tag.Name }}"></a>
-## {{ if .Tag.Previous }}[{{ .Tag.Name }}]({{ $.Info.RepositoryURL }}/compare/diff?targetBranch=refs%sFtags%2F{{ .Tag.Previous.Name }}&sourceBranch=refs%2Ftags%2F{{ .Tag.Name }}){{ else }}{{ .Tag.Name }}{{ end }} - {{ datetime "2006-01-02" .Tag.Date }}
+## {{ if .Tag.Previous }}[{{ .Tag.Name }}]({{ $.Info.RepositoryURL }}/compare/{{ .Tag.Previous.Name }}...{{ .Tag.Name }}){{ else }}{{ .Tag.Name }}{{ end }} - {{ datetime "2006-01-02" .Tag.Date }}
 
 {{ range .CommitGroups -}}
 ### {{ .Title }}
@@ -22,7 +22,7 @@
 ### Pull Requests
 
 {{ range .MergeCommits -}}
-* {{ .Header }}
+- {{ .Header }}
 {{ end }}
 {{ end -}}
 
