@@ -26,6 +26,7 @@ func (c *InstallCommand) Run(args []string) int {
 			fmt.Fprintf(os.Stderr, "error: %v", err)
 			return 1
 		}
+		return 0
 	}
 
 	switch args[0] {
