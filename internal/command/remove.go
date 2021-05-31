@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"tfvm/internal/helper"
+	"github.com/ethanhassett/tfvm/internal/helper"
 )
 
 // RemoveCommand is a Command that removes a specified installed version of Terraform.

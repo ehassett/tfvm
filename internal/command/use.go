@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"tfvm/internal/helper"
+	"github.com/ethanhassett/tfvm/internal/helper"
 )
 
 // UseCommand is a Command that selects a Terraform version to be used.

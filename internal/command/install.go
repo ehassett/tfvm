@@ -11,7 +11,7 @@ import (
 	"runtime"
 	"strings"
 
-	"tfvm/internal/helper"
+	"github.com/ethanhassett/tfvm/internal/helper"
 )
 
 // InstallCommand is a Command that downloads and installs a specific Terraform version.
@@ -26,6 +26,7 @@ func (c *InstallCommand) Run(args []string) int {
 			fmt.Fprintf(os.Stderr, "error: %v", err)
 			return 1
 		}
+		return 0
 	}
 
 	switch args[0] {
