@@ -23,21 +23,21 @@ func (c *UseCommand) Run(args []string) int {
 		// Get working directory.
 		cwd, err := os.Getwd()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 
 		// Test if .tfversion exists in working directory.
 		if _, err := os.Stat(cwd + string(filepath.Separator) + ".tfversion"); os.IsNotExist(err) {
 			err := errors.New("invalid terraform version, run `tfvm list` for a list of installed versions")
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 
 		// Read .tfversion.
 		version, err = getDirVersion()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 
@@ -48,7 +48,7 @@ func (c *UseCommand) Run(args []string) int {
 
 	err := useVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.Extension, version)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		return 1
 	}
 	return 0
@@ -87,7 +87,7 @@ func useVersion(
 
 	// Return if desired version is already current.
 	if version == currentVersion {
-		fmt.Printf("Now using terraform v%s.", version)
+		fmt.Printf("Now using terraform v%s.\n", version)
 		return nil
 	}
 
@@ -106,7 +106,7 @@ func useVersion(
 		return err
 	}
 
-	fmt.Printf("Now using terraform v%s.", version)
+	fmt.Printf("Now using terraform v%s.\n", version)
 	return nil
 }
 

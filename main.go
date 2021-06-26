@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-var appVersion string = "0.4.0"
+var appVersion string = "0.4.1"
 
 func main() {
 	c := cli.NewCLI("tfvm", appVersion)
@@ -21,7 +21,7 @@ func main() {
 
 	exitStatus, err := c.Run()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 	}
 	os.Exit(exitStatus)
 }
@@ -32,7 +32,7 @@ func init() {
 	// Determine paths and extensions based on OS.
 	home, err := os.UserHomeDir()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
 	basePath = home + string(filepath.Separator) + ".tfvm"
@@ -48,7 +48,7 @@ func init() {
 	default:
 		extension = ""
 		err := errors.New("operating system could not be verified")
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
 

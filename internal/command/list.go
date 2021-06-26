@@ -16,7 +16,7 @@ type ListCommand struct {
 func (c *ListCommand) Run(args []string) int {
 	versions, err := helper.GetInstalledVersions(c.InstallPath, c.Extension)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		return 1
 	}
 

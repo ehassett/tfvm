@@ -23,7 +23,7 @@ func (c *InstallCommand) Run(args []string) int {
 	if len(args) < 1 {
 		err := installLatest(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 		return 0
@@ -33,7 +33,7 @@ func (c *InstallCommand) Run(args []string) int {
 	case "--list", "-list", "-l":
 		versions, err := helper.GetAvailableVersions()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 		for i := 0; i < len(versions); i++ {
@@ -42,7 +42,7 @@ func (c *InstallCommand) Run(args []string) int {
 	default:
 		err := installVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension, args[0])
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
+			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
 	}
@@ -118,7 +118,7 @@ func installVersion(
 		return err
 	}
 
-	fmt.Printf("Terraform v%s successfully installed. Run `tfvm use %s` to use this new version.", version, version)
+	fmt.Printf("Terraform v%s successfully installed. Run `tfvm use %s` to use this new version.\n", version, version)
 	return nil
 }
 

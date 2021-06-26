@@ -18,13 +18,13 @@ type RemoveCommand struct {
 func (c *RemoveCommand) Run(args []string) int {
 	if len(args) < 1 {
 		err := errors.New("invalid terraform version, run `tfvm list` for a list of installed versions")
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		return 1
 	}
 
 	err := removeVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.Extension, args[0])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		return 1
 	}
 
@@ -75,6 +75,6 @@ func removeVersion(
 		}
 	}
 
-	fmt.Printf("Terraform v%s was successfully removed.", version)
+	fmt.Printf("Terraform v%s was successfully removed.\n", version)
 	return nil
 }
