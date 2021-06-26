@@ -1,4 +1,12 @@
 
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/ethanhassett/tfvm/compare/0.4.0...0.4.1) - 2021-06-26
+
+### Fix
+
+- Make sure all outputs have newlines for format fixes on bash
+
+
 <a name="0.4.0"></a>
 ## [0.4.0](https://github.com/ethanhassett/tfvm/compare/0.3.1...0.4.0) - 2021-05-31
 
@@ -36,15 +44,11 @@
 <a name="0.2.0"></a>
 ## [0.2.0](https://github.com/ethanhassett/tfvm/compare/0.1.0...0.2.0) - 2021-05-26
 
-### Feat
-
-- Switch to using a command factory structure
-
 
 <a name="0.1.0"></a>
 ## 0.1.0 - 2021-05-25
 
 ### Release
 
-- Initial release
+- Milestone 1 ([#1](https://github.com/ethanhassett/tfvm/issues/1))
 
