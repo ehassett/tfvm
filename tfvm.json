@@ -1,5 +1,5 @@
 {
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "A Terraform version manager written in Go",
     "homepage": "https://github.com/ethanhassett/tfvm",
     "license": {
@@ -8,13 +8,13 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://github.com/ethanhassett/tfvm/releases/download/0.5.1/tfvm-0.5.1-windows-amd64.zip",
-            "hash": "md5:07f59f6484829d9df652fea8a98a2eb7",
+            "url": "https://github.com/ethanhassett/tfvm/releases/download/0.5.2/tfvm-0.5.2-windows-amd64.zip",
+            "hash": "md5:464bed5d36a46ca6977292f9f73c6860",
             "bin": "tfvm.exe"
         },
         "32bit": {
-            "url": "https://github.com/ethanhassett/tfvm/releases/download/0.5.1/tfvm-0.5.1-windows-386.zip",
-            "hash": "md5:0b0ebe70d83a7c803dc8aa7f0bc40fb1",
+            "url": "https://github.com/ethanhassett/tfvm/releases/download/0.5.2/tfvm-0.5.2-windows-386.zip",
+            "hash": "md5:a52036676934539fbc7f3cb801bc59b5",
             "bin": "tfvm.exe"
         }
     },
