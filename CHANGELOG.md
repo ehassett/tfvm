@@ -1,4 +1,12 @@
 
+<a name="0.5.2"></a>
+## [0.5.2](https://github.com/ethanhassett/tfvm/compare/0.5.1...0.5.2) - 2021-06-27
+
+### Fix
+
+- Update version in main.go
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/ethanhassett/tfvm/compare/0.5.0...0.5.1) - 2021-06-27
 
