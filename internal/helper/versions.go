@@ -27,7 +27,10 @@ func GetAvailableVersions() ([]string, error) {
 	doc.Find("a[href]").Each(func(index int, item *goquery.Selection) {
 		if strings.Contains(item.Text(), "terraform") {
 			version := strings.Split(item.Text(), "_")[1]
-			versions = append(versions, version)
+			// Do not include pre-release versions
+			if !strings.Contains(version, "-") {
+				versions = append(versions, version)
+			}
 		}
 	})
 	return versions, err
