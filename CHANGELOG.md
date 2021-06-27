@@ -1,14 +1,10 @@
 
 <a name="0.5.0"></a>
-## [0.5.0](https://github.com/ethanhassett/tfvm/compare/1.0.0...0.5.0) - 2021-06-27
+## [0.5.0](https://github.com/ethanhassett/tfvm/compare/0.4.1...0.5.0) - 2021-06-27
 
 ### Feat
 
 - Create automated release pipeline
-
-
-<a name="1.0.0"></a>
-## [1.0.0](https://github.com/ethanhassett/tfvm/compare/0.4.1...1.0.0) - 2021-06-26
 
 
 <a name="0.4.1"></a>
