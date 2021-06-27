@@ -1,4 +1,12 @@
 
+<a name="0.5.1"></a>
+## [0.5.1](https://github.com/ethanhassett/tfvm/compare/0.5.0...0.5.1) - 2021-06-27
+
+### Fix
+
+- Changelog and tag issues
+
+
 <a name="0.5.0"></a>
 ## [0.5.0](https://github.com/ethanhassett/tfvm/compare/0.4.1...0.5.0) - 2021-06-27
 
