@@ -87,4 +87,4 @@ Bugs, feaure requests, and comments are more than welcome in the [issues](https:
 
 - [x] Add ability to use .tfversion file
 - [x] Add installation methods
-- [ ] Add pagination to `tfvm install list`
+- [x] Add pagination to `tfvm install --list`

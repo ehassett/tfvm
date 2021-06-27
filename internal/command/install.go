@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -36,9 +37,22 @@ func (c *InstallCommand) Run(args []string) int {
 			fmt.Fprintf(os.Stderr, "error: %v\n", err)
 			return 1
 		}
-		for i := 0; i < len(versions); i++ {
-			fmt.Println(versions[i])
+
+		pager := os.Getenv("PAGER")
+		if pager != "" {
+			cmd := exec.Command(pager)
+			cmd.Stdin = strings.NewReader(strings.Join(versions, "\n"))
+			cmd.Stdout = os.Stdout
+			err := cmd.Run()
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "error: %v\n", err)
+			}
+		} else {
+			for i := 0; i < len(versions); i++ {
+				fmt.Println(versions[i])
+			}
 		}
+
 	default:
 		err := installVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension, args[0])
 		if err != nil {
