@@ -1,0 +1,14 @@
+on:
+  push:
+    tags:
+      - "*"
+  
+jobs:
+  create-release:
+    name: "Create Release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.RELEASES_GITHUB_TOKEN }}
+          prerelease: false
