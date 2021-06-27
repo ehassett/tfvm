@@ -73,12 +73,18 @@ Usage: tfvm install [version]
 
 	Installs a Terraform binary according to the specified version.
 	If no version is specified, tfvm will default to the latest available version.
+	Version specification can be to the patch or minor version.
+	Only specifying a minor version will install the latest patch of that version.
 
 	For a list of available versions, run:
   	tfvm install --list
 
 	Options:
 		--list, -l	List available versions of Terraform
+
+	Examples:
+		tfvm install 1.0.0	Installs Terraform v1.0.0
+		tfvm install 1.0	Installs the latest of Terraform v1.0.x
 	`
 
 	return strings.TrimSpace(helpText)
@@ -93,6 +99,14 @@ func installVersion(
 	extension string,
 	version string,
 ) error {
+	if strings.Count(version, ".") == 1 {
+		fullVersion, err := getMinorVersion(version)
+		if err != nil {
+			return err
+		}
+		version = fullVersion
+	}
+
 	// Check if the selected version is already installed.
 	_, err := os.Stat(installPath + string(filepath.Separator) + "terraform" + version + extension)
 	if !os.IsNotExist(err) {
@@ -251,4 +265,22 @@ func unzipArchive(src string, dest string) error {
 		}
 	}
 	return nil
+}
+
+// getMinorVersion gets the latest Terrform version from a minor version.
+func getMinorVersion(version string) (string, error) {
+	versions, err := helper.GetAvailableVersions()
+	if err != nil {
+		return "", err
+	}
+
+	for i := 0; i < len(versions); i++ {
+		tmp := strings.Split(versions[i], ".")[0] + "." + strings.Split(versions[i], ".")[1]
+		if strings.Contains(tmp, version) {
+			return versions[i], nil
+		}
+	}
+
+	err = errors.New("invalid minor specification, run `tfvm install --list` to see all available versions")
+	return "", err
 }

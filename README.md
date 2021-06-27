@@ -17,7 +17,6 @@
     - [CLI Usage](#cli-usage)
   - [Contributing](#contributing)
     - [Development](#development)
-  - [TODO](#todo)
 
 ## Features
 
@@ -82,9 +81,3 @@ Contributions to this project are welcome and much appreciated!
 5. Open a Pull Request, rebasing against `main` if needed.
 
 Bugs, feaure requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
-
-## TODO
-
-- [x] Add ability to use .tfversion file
-- [x] Add installation methods
-- [x] Add pagination to `tfvm install --list`
