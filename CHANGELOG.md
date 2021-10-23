@@ -1,4 +1,12 @@
 
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/ethanhassett/tfvm/compare/1.0.0...1.0.1) - 2021-10-23
+
+### Pull Requests
+
+- Merge pull request [#4](https://github.com/ethanhassett/tfvm/issues/4) from ethanhassett/release-1.0.0
+
+
 <a name="1.0.0"></a>
 ## [1.0.0](https://github.com/ethanhassett/tfvm/compare/0.5.2...1.0.0) - 2021-10-23
 
