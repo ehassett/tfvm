@@ -1,4 +1,18 @@
 
+<a name="1.0.0"></a>
+## [1.0.0](https://github.com/ethanhassett/tfvm/compare/0.5.2...1.0.0) - 2021-10-23
+
+### Feat
+
+- Allow minor version specification to `tfvm install`
+- Use $PAGER for `tfvm install --list` if set
+
+### Fix
+
+- Update gitignore
+- Do not include pre-release versions in available versions
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/ethanhassett/tfvm/compare/0.5.1...0.5.2) - 2021-06-27
 
