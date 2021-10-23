@@ -1,3 +1,19 @@
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
+
+### Go ###
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -8,11 +24,18 @@
 # Test binary, built with `go test -c`
 *.test
 
-# Main binary, built with `go build`
-tfvm
-
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# test directory
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+### Go Patch ###
+/vendor/
+/Godeps/
+
+# Test directory
 test
+
+# Main binary, built with `go build`
+tfvm

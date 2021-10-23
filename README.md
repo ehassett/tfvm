@@ -17,7 +17,6 @@
     - [CLI Usage](#cli-usage)
   - [Contributing](#contributing)
     - [Development](#development)
-  - [TODO](#todo)
 
 ## Features
 
@@ -49,7 +48,7 @@ Running the install script after installation will keep tfvm updated.
 
 Using `go get`:
 ```bash
-go get -u github.com/ethanhassett/tfvm@0.5.2
+go get -u github.com/ethanhassett/tfvm@1.0.0
 ```
 This will require manually adding `<USER_HOME>/.tfvm` to PATH.
 
@@ -82,9 +81,3 @@ Contributions to this project are welcome and much appreciated!
 5. Open a Pull Request, rebasing against `main` if needed.
 
 Bugs, feaure requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
-
-## TODO
-
-- [x] Add ability to use .tfversion file
-- [x] Add installation methods
-- [ ] Add pagination to `tfvm install list`
