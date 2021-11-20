@@ -45,6 +45,8 @@ func init() {
 		extension = ".exe"
 	case "linux":
 		extension = ""
+	case "darwin":
+		extension = ""
 	default:
 		extension = ""
 		err := errors.New("operating system could not be verified")

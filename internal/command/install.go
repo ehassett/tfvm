@@ -194,6 +194,15 @@ func getArchitecture() (string, error) {
 		default:
 			err = errors.New("architecture could not be verified for installation")
 		}
+	} else if runtime.GOOS == "darwin" {
+		switch runtime.GOARCH {
+		case "amd64":
+			arch = "darwin_amd64"
+		case "arm64":
+			arch = "darwin_arm64"
+		default:
+			err = errors.New("architecture could not be verified for installation")
+		}
 	} else {
 		err = errors.New("operating system is not supported for installation")
 	}
