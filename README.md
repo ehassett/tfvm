@@ -22,6 +22,7 @@
 
 - Easily manage multiple terraform versions to use across projects.
 - Run `tfvm use` with no version argument to switch to the version specified in the current directory's `.tfversion` file.
+- Works on Linux, Mac, and Windows.
 
 ## Changelog
 
@@ -40,7 +41,7 @@ scoop bucket add tfvm https://github.com/ethanhassett/tfvm
 scoop install tfvm
 ```
 
-Linux and Mac users can install via the [install script](install.sh):
+Linux users can install via the [install script](install.sh):
 ```bash
 wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh | bash
 ```

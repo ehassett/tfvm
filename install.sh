@@ -10,25 +10,6 @@ set -e
   IFS=':' read -ra ADDR <<< $IN
   latestVersion=$(echo ${ADDR[1]} | tr -d ,)
 
-  # Check OS
-  os=$(uname -s)
-  case $os in
-
-    Darwin)
-      os="darwin"
-      ;;
-
-    Linux)
-      os="linux"
-      ;;
-
-    *)
-      echo "ERROR: Unsupported oeprating system, try installing manually if you believe this is incorrect."
-      trap exit ERR
-      ;;
-
-  esac
-
   # Check CPU architecture
   arch=$(uname -m)
   case $arch in 
@@ -45,7 +26,7 @@ set -e
       arch="arm"
       ;;
 
-    aarch64_be | aarch64 | armv8b | armv8l | arm64)
+    aarch64_be | aarch64 | armv8b | armv8l)
       arch="arm64"
       ;;
     
@@ -57,22 +38,22 @@ set -e
   esac
 
   # Download latest version
-  url="https://github.com/ethanhassett/tfvm/releases/download/$latestVersion/tfvm-$latestVersion-$os-$arch.tar.gz"
+  url="https://github.com/ethanhassett/tfvm/releases/download/$latestVersion/tfvm-$latestVersion-linux-$arch.tar.gz"
   checksumUrl="$url.md5"
 
   echo "Downloading from $url..."
-  wget -q -O /tmp/tfvm-$latestVersion-$os-$arch.tar.gz $url
+  wget -q -O /tmp/tfvm-$latestVersion-linux-$arch.tar.gz $url
 
   # Verify checksum
   checksum=$(wget -q -O - $checksumUrl | cat)
-  md5sum -c <<<"$checksum /tmp/tfvm-$latestVersion-$os-$arch.tar.gz"
+  md5sum -c <<<"$checksum /tmp/tfvm-$latestVersion-linux-$arch.tar.gz"
 
   # Extract to /usr/bin/tfvm
   if ! [[ -d $tfvmDir ]]; then
     mkdir -p $tfvmDir
   fi
-  tar -xzf /tmp/tfvm-$latestVersion-$os-$arch.tar.gz -C $tfvmDir
-  rm /tmp/tfvm-$latestVersion-$os-$arch.tar.gz
+  tar -xzf /tmp/tfvm-$latestVersion-linux-$arch.tar.gz -C $tfvmDir
+  rm /tmp/tfvm-$latestVersion-linux-$arch.tar.gz
 
   # Determines profile file to add tfvm directory to PATH
   profile=""
