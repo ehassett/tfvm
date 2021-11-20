@@ -1,4 +1,24 @@
 
+<a name="1.1.0"></a>
+## [1.1.0](https://github.com/ethanhassett/tfvm/compare/1.0.1...1.1.0) - 2021-11-20
+
+### Ci
+
+- Add stale issue/PR workflow
+- Update commit name for manifest update
+- Add darwin builds to release creator
+
+### Doc
+
+- Update verison and readme
+- Add issue templates
+
+### Feat
+
+- Add OSx support to install.sh
+- Add OSx support
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/ethanhassett/tfvm/compare/1.0.0...1.0.1) - 2021-10-23
 
