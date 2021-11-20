@@ -49,5 +49,5 @@ jobs:
           git config --global user.email 'ethanhassett@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.RELEASES_GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add tfvm.json
-          git commit -m "Update manifest"
+          git commit -m "doc: Update manifest"
           git push origin HEAD:main
