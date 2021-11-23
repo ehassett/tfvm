@@ -49,7 +49,7 @@ Running the install script after installation will keep tfvm updated.
 
 Using `go get`:
 ```bash
-go get -u github.com/ethanhassett/tfvm@1.1.0
+go get -u github.com/ethanhassett/tfvm@1.2.0
 ```
 This will require manually adding `<USER_HOME>/.tfvm` to PATH.
 
