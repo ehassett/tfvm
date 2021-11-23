@@ -1,3 +1,5 @@
+name: create_release
+
 on:
   push:
     tags:
