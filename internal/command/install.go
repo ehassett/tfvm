@@ -56,8 +56,8 @@ func (c *InstallCommand) Run(args []string) int {
 	default:
 		err := installVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension, args[0])
 		if err != nil {
-			c.Ui.Warn(fmt.Sprintf("Could not install specified version: %s", err))
-			return 0
+			c.Ui.Error(fmt.Sprintf("Could not install specified version: %s", err))
+			return 1
 		}
 		c.Ui.Output(fmt.Sprintf("Terraform v%s successfully installed. Run `tfvm use %s` to use this new version.", args[0], args[0]))
 	}
