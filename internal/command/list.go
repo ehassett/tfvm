@@ -2,7 +2,6 @@ package command
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/ethanhassett/tfvm/internal/helper"
@@ -16,15 +15,15 @@ type ListCommand struct {
 func (c *ListCommand) Run(args []string) int {
 	versions, err := helper.GetInstalledVersions(c.InstallPath, c.Extension)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		c.Ui.Error(fmt.Sprintf("Could not get installed versions: %s", err))
 		return 1
 	}
 
 	for i := 0; i < len(versions); i++ {
 		if versions[i] == c.TerraformVersion {
-			fmt.Println("* " + versions[i])
+			c.Ui.Output(fmt.Sprintf("* %s", versions[i]))
 		} else {
-			fmt.Println("  " + versions[i])
+			c.Ui.Output(fmt.Sprintf("  %s", versions[i]))
 		}
 	}
 	return 0
