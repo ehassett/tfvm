@@ -14,6 +14,20 @@ import (
 
 var appVersion string = "1.1.0"
 
+type ui struct {
+	cli.Ui
+}
+
+func (ui *ui) Warn(msg string) {
+	ui.Ui.Output(msg)
+}
+
+var Ui = &ui{&cli.BasicUi{
+	Writer:      os.Stdout,
+	ErrorWriter: os.Stderr,
+	Reader:      os.Stdin,
+}}
+
 func main() {
 	c := cli.NewCLI("tfvm", appVersion)
 	c.Args = os.Args[1:]
@@ -21,7 +35,7 @@ func main() {
 
 	exitStatus, err := c.Run()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		Ui.Error(fmt.Sprintf("Error executing CLI: %s", err.Error()))
 	}
 	os.Exit(exitStatus)
 }
@@ -32,7 +46,7 @@ func init() {
 	// Determine paths and extensions based on OS.
 	home, err := os.UserHomeDir()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		Ui.Error(fmt.Sprintf("Failed to find home directory: %s", err))
 		os.Exit(1)
 	}
 	basePath = home + string(filepath.Separator) + ".tfvm"
@@ -50,7 +64,7 @@ func init() {
 	default:
 		extension = ""
 		err := errors.New("operating system could not be verified")
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		Ui.Error(fmt.Sprintf("Failed to determine extension: %s", err))
 		os.Exit(1)
 	}
 
@@ -71,12 +85,13 @@ func init() {
 	} else {
 		out, err := exec.Command(binPath+string(filepath.Separator)+"terraform"+extension, "-v").Output()
 		if err != nil {
-			panic(err)
+			Ui.Error(fmt.Sprintf("Failed to determine current terraform version: %s", err))
+			os.Exit(1)
 		}
 		tmp := strings.Split(string(out), "v")[1]
 		terraformVersion = strings.Split(tmp, "\n")[0]
 	}
 
 	// Pass initialized values to initCommands for Meta.
-	initCommands(terraformVersion, installPath, binPath, tempPath, extension)
+	initCommands(terraformVersion, installPath, binPath, tempPath, extension, Ui)
 }

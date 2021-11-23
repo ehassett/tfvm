@@ -70,7 +70,7 @@ func IsAvailableVersion(version string) error {
 		}
 
 		if !(majInt >= 1 && patchInt >= 2) {
-			err = errors.New("only terraform v1.0.2+ is supported on Apple Silicon")
+			err = errors.New("only Terraform v1.0.2+ is supported on Apple Silicon")
 			return err
 		}
 	}
@@ -86,7 +86,7 @@ func IsAvailableVersion(version string) error {
 		}
 	}
 
-	err = errors.New("invalid terraform version, run `tfvm install --list` for a list of available versions")
+	err = errors.New("invalid Terraform version, run `tfvm install --list` for a list of available versions")
 	return err
 }
 
@@ -123,6 +123,6 @@ func IsInstalledVersion(installPath string, extension string, version string) er
 		}
 	}
 
-	err = errors.New("invalid terraform version, run `tfvm list` for a list of installed versions")
+	err = errors.New("invalid Terraform version, run `tfvm list` for a list of installed versions")
 	return err
 }

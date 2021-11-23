@@ -24,7 +24,7 @@ func (c *InstallCommand) Run(args []string) int {
 	if len(args) < 1 {
 		err := installLatest(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
+			c.Ui.Error(fmt.Sprintf("Could not install latest version: %s", err))
 			return 1
 		}
 		return 0
@@ -34,7 +34,7 @@ func (c *InstallCommand) Run(args []string) int {
 	case "--list", "-list", "-l":
 		versions, err := helper.GetAvailableVersions()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
+			c.Ui.Error(fmt.Sprintf("Could not show available versions: %s", err))
 			return 1
 		}
 
@@ -45,20 +45,21 @@ func (c *InstallCommand) Run(args []string) int {
 			cmd.Stdout = os.Stdout
 			err := cmd.Run()
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "error: %v\n", err)
+				c.Ui.Error(fmt.Sprintf("Error using $PAGER: %s", err))
 			}
 		} else {
 			for i := 0; i < len(versions); i++ {
-				fmt.Println(versions[i])
+				c.Ui.Output(versions[i])
 			}
 		}
 
 	default:
 		err := installVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.TempPath, c.Extension, args[0])
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v\n", err)
-			return 1
+			c.Ui.Warn(fmt.Sprintf("Could not install specified version: %s", err))
+			return 0
 		}
+		c.Ui.Output(fmt.Sprintf("Terraform v%s successfully installed. Run `tfvm use %s` to use this new version.", args[0], args[0]))
 	}
 	return 0
 }
@@ -110,7 +111,7 @@ func installVersion(
 	// Check if the selected version is already installed.
 	_, err := os.Stat(installPath + string(filepath.Separator) + "terraform" + version + extension)
 	if !os.IsNotExist(err) {
-		err = errors.New("version already installed, run `tfvm use " + version + "` to use this version")
+		err = errors.New("already installed, run `tfvm use " + version + "` to use this version")
 		return err
 	}
 
@@ -126,13 +127,11 @@ func installVersion(
 	}
 
 	url := "https://releases.hashicorp.com/terraform/" + version + "/terraform_" + version + "_" + arch + ".zip"
-	fmt.Printf("Downloading terraform v%s from %s\n", version, url)
 	err = downloadArchive(url, tempPath)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("Extracting archive...")
 	err = unzipArchive(tempPath, installPath)
 	if err != nil {
 		return err
@@ -146,7 +145,6 @@ func installVersion(
 		return err
 	}
 
-	fmt.Printf("Terraform v%s successfully installed. Run `tfvm use %s` to use this new version.\n", version, version)
 	return nil
 }
 
@@ -242,7 +240,8 @@ func unzipArchive(src string, dest string) error {
 
 		// Check for ZipSlip. More Info: http://bit.ly/2MsjAWE
 		if !strings.HasPrefix(fpath, filepath.Clean(dest)+string(os.PathSeparator)) {
-			return fmt.Errorf("%s: illegal file path", fpath)
+			err = errors.New("illegal file path: " + fpath)
+			return err
 		}
 
 		if f.FileInfo().IsDir() {

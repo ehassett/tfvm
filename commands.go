@@ -14,6 +14,7 @@ func initCommands(
 	binPath string,
 	tempPath string,
 	extension string,
+	ui cli.Ui,
 ) {
 
 	meta := command.Meta{
@@ -22,6 +23,7 @@ func initCommands(
 		BinPath:          binPath,
 		TempPath:         tempPath,
 		Extension:        extension,
+		Ui:               ui,
 	}
 
 	Commands = map[string]cli.CommandFactory{
