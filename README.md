@@ -49,7 +49,7 @@ Running the install script after installation will keep tfvm updated.
 
 Using `go get`:
 ```bash
-go get -u github.com/ethanhassett/tfvm@1.2.0
+go get -u github.com/ethanhassett/tfvm@v1.2.0
 ```
 This will require manually adding `<USER_HOME>/.tfvm` to PATH.
 
@@ -75,7 +75,7 @@ Contributions to this project are welcome and much appreciated!
 
 ### Development
 
-1. Use Golang version `1.16.4`
+1. Use Golang version `1.16`
 2. Fork [this repo](https://github.com/ethanhassett/tfvm)
 3. Commit and push your changes, using proper commit prefixes found below.
     * fix:
