@@ -35,12 +35,6 @@ tfvm installs and manages different versions of terraform in the CLI.
 ## Getting Started
 ### Installation
 
-Windows users can install via [Scoop](https://scoop.sh):
-```PowerShell
-scoop bucket add tfvm https://github.com/ethanhassett/tfvm
-scoop install tfvm
-```
-
 Linux users can install via the [install script](install.sh):
 ```bash
 wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh | bash
