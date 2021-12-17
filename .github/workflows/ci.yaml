@@ -2,7 +2,8 @@ name: ci
 
 on:
   push:
-    paths: '**.go'
+    paths:
+      - '**.go'
   pull_request:
 
 env:
