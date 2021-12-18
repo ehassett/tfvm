@@ -5,12 +5,7 @@ set -e
 
   tfvmDir="$HOME/.tfvm/bin"
 
-  # Get latest available verison from github
-  IN=$(wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/tfvm.json | grep "\"version\":" | xargs)
-  IFS=':' read -ra ADDR <<< $IN
-  latestVersion=$(echo ${ADDR[1]} | tr -d ,)
-
-  # Check CPU architecture
+  # Check CPU architecture and OS
   arch=$(uname -m)
   case $arch in 
 
@@ -22,11 +17,7 @@ set -e
       arch="386"
       ;;
 
-    arm)
-      arch="arm"
-      ;;
-
-    aarch64_be | aarch64 | armv8b | armv8l)
+    aarch64_be | aarch64 | armv8b | armv8l | arm64)
       arch="arm64"
       ;;
     
@@ -37,23 +28,62 @@ set -e
   
   esac
 
-  # Download latest version
-  url="https://github.com/ethanhassett/tfvm/releases/download/$latestVersion/tfvm-$latestVersion-linux-$arch.tar.gz"
-  checksumUrl="$url.md5"
+  os=$(uname -s)
+  case $os in
 
-  echo "Downloading from $url..."
-  wget -q -O /tmp/tfvm-$latestVersion-linux-$arch.tar.gz $url
+    Linux)
+      os="linux"
+      ;;
+
+    Darwin)
+      os="darwin"
+      ;;
+
+    *)
+      echo "ERROR: Unsupported OS, try installing manually if you believe this is incorrect."
+      trap exit ERR
+      ;;
+
+  esac
+
+  # Download latest version
+  url=$(curl -s https://api.github.com/repos/ethanhassett/tfvm/releases | grep browser_download_url | grep $os | grep $arch | head -n 1 | cut -d '"' -f 4)
+  pkg=$(echo $url | sed 's/.*\///')
+  echo "Downloading $pkg from GitHub..."
+  wget -qP /tmp $url
 
   # Verify checksum
-  checksum=$(wget -q -O - $checksumUrl | cat)
-  md5sum -c <<<"$checksum /tmp/tfvm-$latestVersion-linux-$arch.tar.gz"
+  checksumUrl="https://github.com/ethanhassett/tfvm/releases/latest/download/checksum.txt"
+  checksum=$(wget -q -O - $checksumUrl | cat | grep $pkg | head -n1 | cut -d " " -f1 | xargs)
+
+  case $os in
+
+    linux)
+      calcsum=$(sha256sum /tmp/$pkg | head -n1 | cut -d " " -f1 | xargs)
+      ;;
+
+    darwin)
+      calcsum=$(shasum -a 256 /tmp/$pkg | head -n1 | cut -d " " -f1 | xargs)
+      ;;
+
+    *)
+      echo "ERROR: Unsupported OS, try installing manually if you believe this is incorrect."
+      trap exit ERR
+      ;;
+
+  esac
+
+  if [[ $calcsum != $checksum ]]; then
+    echo "ERROR: Could not verify checksum. Please manually verify and install."
+    trap exit ERR
+  fi
 
   # Extract to /usr/bin/tfvm
   if ! [[ -d $tfvmDir ]]; then
     mkdir -p $tfvmDir
   fi
-  tar -xzf /tmp/tfvm-$latestVersion-linux-$arch.tar.gz -C $tfvmDir
-  rm /tmp/tfvm-$latestVersion-linux-$arch.tar.gz
+  tar -xzf /tmp/$pkg -C $tfvmDir
+  rm /tmp/$pkg
 
   # Determines profile file to add tfvm directory to PATH
   profile=""

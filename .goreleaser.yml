@@ -1,0 +1,41 @@
+project_name: tfvm
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+
+archives:
+  - format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: desc
+  filters:
+    exclude:
+      - "^Merge"
+
+brews:
+  - tap:
+      owner: ethanhassett
+      name: homebrew-tfvm
+    homepage: "https://github.com/ethanhassett/tfvm/tree/main"
+    description: "A Terraform Version Manager written in Go"
+    test: |
+      system "#{bin}/tfvm --help"
+    install: |
+      bin.install "tfvm"
