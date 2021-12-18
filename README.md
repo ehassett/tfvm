@@ -34,7 +34,12 @@ tfvm installs and manages different versions of terraform in the CLI.
 
 ## Getting Started
 ### Installation
-Linux or Mac users can install via the [install script](install.sh) (requires both curl and wget):
+Mac and Linux users can install via Homebrew:
+```bash
+brew tap ethanhassett/tfvm
+brew install ethanhassett/tfvm
+```
+or via the [install script](install.sh) (requires both curl and wget):
 ```bash
 wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh | bash
 ```
