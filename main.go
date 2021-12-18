@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-var appVersion string = "1.2.0"
+var appVersion string = "1.3.1"
 
 type ui struct {
 	cli.Ui
