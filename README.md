@@ -74,6 +74,6 @@ Contributions to this project are welcome and much appreciated!
     * fix:
     * feat:
     * doc:
-4. Open a Pull Request, rebasing against `main` if needed.
+4. Open a Pull Request, rebasing against `master` if needed.
 
 Bugs, feature requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
