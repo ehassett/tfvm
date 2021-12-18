@@ -55,11 +55,13 @@ wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/master/install.
 Running the install script after installation will keep tfvm updated.
 
 #### Go users
-Install with `go install`:
+Install latest with `go install` (or substitute a version):
 ```bash
 go install github.com/ethanhassett/tfvm@latest
 ```
-This will require manually adding `<USER_HOME>/.tfvm` to PATH.
+| :warning: Important Note                                        |
+|:----------------------------------------------------------------|
+| Installing via Go requires manually adding `$HOME/tfvm` to PATH |
 
 Run `tfvm --version` to verify installation.
 

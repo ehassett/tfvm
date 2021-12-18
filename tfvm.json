@@ -19,10 +19,10 @@
     }
   },
   "installer": {
-    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ethanhassett/tfvm/main/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script"
+    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ethanhassett/tfvm/master/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script"
   },
   "uninstaller": {
-    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ethanhassett/tfvm/main/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script -ArgumentList @($True)"
+    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ethanhassett/tfvm/master/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script -ArgumentList @($True)"
   },
   "checkver": "github",
   "autoupdate": {
