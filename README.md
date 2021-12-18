@@ -34,6 +34,12 @@ tfvm installs and manages different versions of terraform in the CLI.
 
 ## Getting Started
 ### Installation
+Linux or Mac users can install via the [install script](install.sh) (requires both curl and wget):
+```bash
+wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh | bash
+```
+Running the install script after installation will keep tfvm updated.
+
 Using `go get`:
 ```bash
 go get -u github.com/ethanhassett/tfvm@v1.2.0
