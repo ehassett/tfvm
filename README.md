@@ -37,7 +37,7 @@ tfvm installs and manages different versions of terraform in the CLI.
 Install via [Homebrew](https://brew.sh):
 ```bash
 brew tap ethanhassett/tfvm
-brew install ethanhassett/tfvm
+brew install tfvm
 ```
 
 #### Scoop (for Windows)
