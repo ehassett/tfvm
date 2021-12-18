@@ -10,7 +10,6 @@
 - [tfvm](#tfvm)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
-  - [Changelog](#changelog)
   - [How it Works](#how-it-works)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
@@ -23,10 +22,6 @@
 - Easily manage multiple terraform versions to use across projects.
 - Run `tfvm use` with no version argument to switch to the version specified in the current directory's `.tfversion` file.
 - Works on Linux, Mac, and Windows.
-
-## Changelog
-
-See the [CHANGELOG](https://github.com/ethanhassett/tfvm/blob/main/CHANGELOG.md)
 
 ## How it Works
 
@@ -41,7 +36,7 @@ brew install ethanhassett/tfvm
 ```
 or via the [install script](install.sh) (requires both curl and wget):
 ```bash
-wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/main/install.sh | bash
+wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/master/install.sh | bash
 ```
 Running the install script after installation will keep tfvm updated.
 
