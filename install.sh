@@ -23,7 +23,7 @@ set -e
     
     *)
       echo "ERROR: Unsupported architecture, try installing manually if you believe this is incorrect."
-      trap exit ERR
+      exit 1
       ;;
   
   esac
@@ -41,7 +41,7 @@ set -e
 
     *)
       echo "ERROR: Unsupported OS, try installing manually if you believe this is incorrect."
-      trap exit ERR
+      exit 1
       ;;
 
   esac
@@ -53,7 +53,7 @@ set -e
   wget -qP /tmp $url
 
   # Verify checksum
-  checksumUrl="https://github.com/ethanhassett/tfvm/releases/latest/download/checksum.txt"
+  checksumUrl="https://github.com/ethanhassett/tfvm/releases/latest/download/checksums.txt"
   checksum=$(wget -q -O - $checksumUrl | cat | grep $pkg | head -n1 | cut -d " " -f1 | xargs)
 
   case $os in
@@ -68,14 +68,14 @@ set -e
 
     *)
       echo "ERROR: Unsupported OS, try installing manually if you believe this is incorrect."
-      trap exit ERR
+      exit 1
       ;;
 
   esac
 
   if [[ $calcsum != $checksum ]]; then
     echo "ERROR: Could not verify checksum. Please manually verify and install."
-    trap exit ERR
+    exit 1
   fi
 
   # Extract to /usr/bin/tfvm
@@ -108,12 +108,12 @@ set -e
   if ! [[ -z $profile ]]; then
     # Add export line to file if it isn't already there
     if grep -Fq 'export PATH="$PATH:$HOME/.tfvm/bin"' $profile; then
-      echo "tfvm v$latestVersion was installed successfully!"
+      echo "tfvm was installed successfully!"
     else
       printf "\n# Add tfvm to PATH\n" >> $profile
       echo 'export PATH="$PATH:$HOME/.tfvm/bin"' >> $profile
       source $profile
-      echo "tfvm v$latestVersion was installed successfully!"
+      echo "tfvm was installed successfully!"
     fi
   fi
   
