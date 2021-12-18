@@ -52,16 +52,15 @@ Install via the [install script](install.sh) (requires both curl and wget):
 ```bash
 wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/master/install.sh | bash
 ```
-Running the install script after installation will keep tfvm updated.
 
 #### Go users
 Install latest with `go install` (or substitute a version):
 ```bash
 go install github.com/ethanhassett/tfvm@latest
 ```
-| :warning: Important Note                                        |
-|:----------------------------------------------------------------|
-| Installing via Go requires manually adding `$HOME/tfvm` to PATH |
+| :warning: Important Note                                         |
+|:-----------------------------------------------------------------|
+| Installing via Go requires manually adding `$HOME/.tfvm` to PATH |
 
 Run `tfvm --version` to verify installation.
 
