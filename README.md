@@ -13,6 +13,10 @@
   - [How it Works](#how-it-works)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
+      - [Homebrew (for Mac and Linux)](#homebrew-for-mac-and-linux)
+      - [Scoop (for Windows)](#scoop-for-windows)
+      - [Script (for Mac and Linux)](#script-for-mac-and-linux)
+      - [Go users](#go-users)
     - [CLI Usage](#cli-usage)
   - [Contributing](#contributing)
     - [Development](#development)
@@ -29,20 +33,31 @@ tfvm installs and manages different versions of terraform in the CLI.
 
 ## Getting Started
 ### Installation
-Mac and Linux users can install via Homebrew:
+#### Homebrew (for Mac and Linux)
+Install via [Homebrew](https://brew.sh):
 ```bash
 brew tap ethanhassett/tfvm
 brew install ethanhassett/tfvm
 ```
-or via the [install script](install.sh) (requires both curl and wget):
+
+#### Scoop (for Windows)
+Install via [Scoop](https://scoop.sh):
+```PowerShell
+scoop bucket add tfvm https://github.com/ethanhassett/tfvm
+scoop install tfvm
+```
+
+#### Script (for Mac and Linux)
+Install via the [install script](install.sh) (requires both curl and wget):
 ```bash
 wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/master/install.sh | bash
 ```
 Running the install script after installation will keep tfvm updated.
 
-Using `go get`:
+#### Go users
+Install with `go install`:
 ```bash
-go get -u github.com/ethanhassett/tfvm@v1.3.1
+go install github.com/ethanhassett/tfvm@latest
 ```
 This will require manually adding `<USER_HOME>/.tfvm` to PATH.
 
