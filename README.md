@@ -59,7 +59,7 @@ Install latest with `go install` (or substitute a version):
 go install github.com/ethanhassett/tfvm@latest
 ```
 | :warning: Important Note                                         |
-|:-----------------------------------------------------------------|
+| :--------------------------------------------------------------- |
 | Installing via Go requires manually adding `$HOME/.tfvm` to PATH |
 
 Run `tfvm --version` to verify installation.
@@ -84,12 +84,9 @@ Contributions to this project are welcome and much appreciated!
 
 ### Development
 
-1. Use Golang version `1.16`
-2. Fork [this repo](https://github.com/ethanhassett/tfvm)
-3. Commit and push your changes, using proper commit prefixes found below.
-    * fix:
-    * feat:
-    * doc:
+1. Use Golang version `1.16`.
+2. Fork [this repo](https://github.com/ethanhassett/tfvm).
+3. Commit and push your changes, using proper [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/).
 4. Open a Pull Request, rebasing against `master` if needed.
 
 Bugs, feature requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
