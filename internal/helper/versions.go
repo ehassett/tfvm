@@ -34,10 +34,11 @@ func GetAvailableVersions() ([]string, error) {
 			if runtime.GOOS == "darwin" && runtime.GOARCH == "arm64" {
 				versionSlice := strings.Split(version, ".")
 				majInt, _ := strconv.Atoi(versionSlice[0])
+				minInt, _ := strconv.Atoi(versionSlice[1])
 				patchInt, _ := strconv.Atoi(versionSlice[2])
 
 				// Do not include pre-release versions or incompatible versions
-				if majInt >= 1 && patchInt >= 2 && !strings.Contains(version, "-") {
+				if (majInt >= 1 && minInt >= 1 || majInt >= 1 && minInt == 0 && patchInt >= 2) && !strings.Contains(version, "-") {
 					versions = append(versions, version)
 				}
 			} else {
@@ -58,18 +59,15 @@ func IsAvailableVersion(version string) error {
 	// Check that Apple Silicon users select a valid version (v1.0.2+).
 	if runtime.GOOS == "darwin" && runtime.GOARCH == "arm64" {
 		versionSlice := strings.Split(version, ".")
-
-		majInt, err := strconv.Atoi(versionSlice[0])
-		if err != nil {
+		if len(versionSlice) < 3 {
+			err = errors.New("invalid Terraform version, run `tfvm install --list` for a list of available versions")
 			return err
 		}
 
-		patchInt, err := strconv.Atoi(versionSlice[2])
-		if err != nil {
-			return err
-		}
-
-		if !(majInt >= 1 && patchInt >= 2) {
+		majInt, _ := strconv.Atoi(versionSlice[0])
+		minInt, _ := strconv.Atoi(versionSlice[1])
+		patchInt, _ := strconv.Atoi(versionSlice[2])
+		if !(majInt >= 1 && minInt >= 1 || majInt >= 1 && minInt == 0 && patchInt >= 2) {
 			err = errors.New("only Terraform v1.0.2+ is supported on Apple Silicon")
 			return err
 		}
