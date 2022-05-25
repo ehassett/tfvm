@@ -38,7 +38,8 @@ jobs:
       env:
         NEW_TAG: ${{ steps.tag.outputs.tag }}
       run: |
-        old_tag=`git describe --tags --abbrev=0 | sed 's/v//'`
+        old_tag=$(git tag --list --sort=-v:refname | grep -v '-' | head -n 1 | sed 's/v//')
+        if [[ -z "$old_tag" ]]; then old_tag=0.0.0; fi
         sed -i '' s/$old/$NEW_TAG/g main.go
 
     - name: Commit and push version changes
