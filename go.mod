@@ -1,4 +1,4 @@
-module github.com/ethanhassett/tfvm
+module github.com/ehassett/tfvm
 
 go 1.16
 
