@@ -1,42 +1,22 @@
 {
-  "version": "1.3.1",
-  "description": "A Terraform version manager written in Go",
-  "homepage": "https://github.com/ehassett/tfvm",
-  "license": {
-    "identifier": "MIT",
-    "url": "https://github.com/ehassett/tfvm/blob/master/LICENSE"
-  },
-  "architecture": {
-    "64bit": {
-      "url": "https://github.com/ehassett/tfvm/releases/download/v1.3.1/tfvm_1.3.1_windows_amd64.zip",
-      "hash": "77e1f3925d50e3ee676a4814ec16c8b1954cff498997c50873cb2e78b52a9aa6",
-      "bin": "tfvm.exe"
-    },
-    "32bit": {
-      "url": "https://github.com/ehassett/tfvm/releases/download/v1.3.1/tfvm_1.3.1_windows_386.zip",
-      "hash": "59c6a1b3a7f89a585b9886f1d8421a4326d5dc22c23b5c8524181f39b64e949a",
-      "bin": "tfvm.exe"
-    }
-  },
-  "installer": {
-    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ehassett/tfvm/master/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script"
-  },
-  "uninstaller": {
-    "script": "$Script = [Scriptblock]::Create(( Invoke-WebRequest 'https://raw.githubusercontent.com/ehassett/tfvm/master/bin/scoop.ps1').Content); Invoke-Command -ScriptBlock $Script -ArgumentList @($True)"
-  },
-  "checkver": "github",
-  "autoupdate": {
+    "version": "1.3.2",
     "architecture": {
-      "64bit": {
-        "url": "https://github.com/ehassett/tfvm/releases/download/v$version/tfvm_$version_windows_amd64.zip"
-      },
-      "32bit": {
-        "url": "https://github.com/ehassett/tfvm/releases/download/v$version/tfvm_$version_windows_386.zip"
-      }
+        "32bit": {
+            "url": "https://github.com/ehassett/tfvm/releases/download/v1.3.2/tfvm_1.3.2_windows_386.zip",
+            "bin": [
+                "tfvm.exe"
+            ],
+            "hash": "a2dcb6447978bffd4f179f9a6aed702fe438ef35ea8cba31a1fc05bac8346f79"
+        },
+        "64bit": {
+            "url": "https://github.com/ehassett/tfvm/releases/download/v1.3.2/tfvm_1.3.2_windows_amd64.zip",
+            "bin": [
+                "tfvm.exe"
+            ],
+            "hash": "98cc07d7a30edde7620ba8c03b2ff7cf9cee40af5988c56383d9efd96e638ec5"
+        }
     },
-    "hash": {
-      "url": "$baseurl/checksums.txt"
-    },
-    "bin": "tfvm.exe"
-  }
+    "homepage": "https://github.com/ehassett/tfvm",
+    "license": "MIT",
+    "description": "A Terraform version manager written in Go"
 }

@@ -2,7 +2,8 @@
 
 [![Version](https://img.shields.io/github/v/release/ehassett/tfvm)](https://github.com/ehassett/tfvm/releases)
 [![MIT License](https://img.shields.io/github/license/ehassett/tfvm)](https://github.com/ehassett/tfvm/blob/main/LICENSE)
-[![ci](https://github.com/ehassett/tfvm/actions/workflows/ci.yaml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/ci.yaml)
+[![tests](https://github.com/ehassett/tfvm/actions/workflows/test.yml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/test.yml)
+[![release](https://github.com/ehassett/tfvm/actions/workflows/release.yml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/release.yml)
 
 > A Terraform Version Manager written in Go
 
@@ -59,11 +60,12 @@ Install latest with `go install` (or substitute a version):
 ```bash
 go install github.com/ehassett/tfvm@latest
 ```
-| :warning: Important Note                                         |
-| :--------------------------------------------------------------- |
-| Installing via Go requires manually adding `$HOME/.tfvm` to PATH |
 
 Run `tfvm --version` to verify installation.
+
+| :warning: Important Note                                        |
+| :-------------------------------------------------------------- |
+| You may need to add `$HOME/.tfvm` to PATH after installing tfvm |
 
 ### CLI Usage
 
