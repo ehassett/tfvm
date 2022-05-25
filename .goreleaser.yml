@@ -30,9 +30,9 @@ changelog:
 
 brews:
   - tap:
-      owner: ethanhassett
+      owner: ehassett
       name: homebrew-tfvm
-    homepage: "https://github.com/ethanhassett/tfvm/tree/main"
+    homepage: "https://github.com/ehassett/tfvm/tree/master"
     description: "A Terraform Version Manager written in Go"
     test: |
       system "#{bin}/tfvm --help"

@@ -1,5 +1,4 @@
-name: release
-
+name: Release Go Package
 on:
   push:
     tags:
@@ -15,7 +14,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -25,7 +24,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v3
         with:
           version: latest
           args: release --rm-dist
@@ -43,17 +42,15 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Update manifest using checkver script
+      - name: Update manifest
         run: |
           git clone https://github.com/lukesampson/scoop.git
           .\scoop\bin\checkver.ps1 tfvm -u -Dir .
 
       - name: Commit and push manifest
-        run: |
-          git config --global user.name 'Ethan Hassett'
-          git config --global user.email 'ethanhassett@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.RELEASER_TOKEN }}@github.com/${{ github.repository }}
-          git add tfvm.json
-          git commit -m "doc: update manifest"
-          git push origin HEAD:master
+        uses: actions-js/push@v1.3
+        with:
+          github_token: ${{ secrets.RELEASER_TOKEN }}
+          message: "docs: update manifest"
+          branch: master
           

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ethanhassett/tfvm/internal/command"
+	"github.com/ehassett/tfvm/internal/command"
 	"github.com/mitchellh/cli"
 )
 

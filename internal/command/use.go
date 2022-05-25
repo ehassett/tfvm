@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ethanhassett/tfvm/internal/helper"
+	"github.com/ehassett/tfvm/internal/helper"
 )
 
 // UseCommand is a Command that selects a Terraform version to be used.
@@ -46,7 +46,7 @@ func (c *UseCommand) Run(args []string) int {
 
 	err := useVersion(c.TerraformVersion, c.InstallPath, c.BinPath, c.Extension, version)
 	if err != nil {
-			c.Ui.Error(fmt.Sprintf("Failed to change versions: %s", err))
+		c.Ui.Error(fmt.Sprintf("Failed to change versions: %s", err))
 		return 1
 	}
 	c.Ui.Output(fmt.Sprintf("Now using Terraform v%s", version))

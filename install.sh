@@ -47,13 +47,13 @@ set -e
   esac
 
   # Download latest version
-  url=$(curl -s https://api.github.com/repos/ethanhassett/tfvm/releases | grep browser_download_url | grep $os | grep $arch | head -n 1 | cut -d '"' -f 4)
+  url=$(curl -s https://api.github.com/repos/ehassett/tfvm/releases | grep browser_download_url | grep $os | grep $arch | head -n 1 | cut -d '"' -f 4)
   pkg=$(echo $url | sed 's/.*\///')
   echo "Downloading $pkg from GitHub..."
   wget -qP /tmp $url
 
   # Verify checksum
-  checksumUrl="https://github.com/ethanhassett/tfvm/releases/latest/download/checksums.txt"
+  checksumUrl="https://github.com/ehassett/tfvm/releases/latest/download/checksums.txt"
   checksum=$(wget -q -O - $checksumUrl | cat | grep $pkg | head -n1 | cut -d " " -f1 | xargs)
 
   case $os in

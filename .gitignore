@@ -39,3 +39,6 @@ test
 
 # Main binary, built with `go build`
 tfvm
+
+### Secrets ###
+*.env

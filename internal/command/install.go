@@ -12,7 +12,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethanhassett/tfvm/internal/helper"
+	"github.com/ehassett/tfvm/internal/helper"
 )
 
 // InstallCommand is a Command that downloads and installs a specific Terraform version.

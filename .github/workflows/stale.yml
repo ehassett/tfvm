@@ -1,4 +1,4 @@
-name: stale
+name: Stale Issues/PRs
 
 on:
   schedule:

@@ -1,7 +1,7 @@
 # tfvm
 
-[![Version](https://img.shields.io/github/v/release/ethanhassett/tfvm)](https://github.com/ethanhassett/tfvm/releases)
-[![MIT License](https://img.shields.io/github/license/ethanhassett/tfvm)](https://github.com/ethanhassett/tfvm/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/ehassett/tfvm)](https://github.com/ehassett/tfvm/releases)
+[![MIT License](https://img.shields.io/github/license/ehassett/tfvm)](https://github.com/ehassett/tfvm/blob/main/LICENSE)
 [![ci](https://github.com/ehassett/tfvm/actions/workflows/ci.yaml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/ci.yaml)
 
 > A Terraform Version Manager written in Go
@@ -37,27 +37,27 @@ tfvm installs and manages different versions of terraform in the CLI.
 #### Homebrew (for Mac and Linux)
 Install via [Homebrew](https://brew.sh):
 ```bash
-brew tap ethanhassett/tfvm
+brew tap ehassett/tfvm
 brew install tfvm
 ```
 
 #### Scoop (for Windows)
 Install via [Scoop](https://scoop.sh):
 ```PowerShell
-scoop bucket add tfvm https://github.com/ethanhassett/tfvm
+scoop bucket add tfvm https://github.com/ehassett/tfvm
 scoop install tfvm
 ```
 
 #### Script (for Mac and Linux)
 Install via the [install script](install.sh) (requires both curl and wget):
 ```bash
-wget -q -O - https://raw.githubusercontent.com/ethanhassett/tfvm/master/install.sh | bash
+wget -q -O - https://raw.githubusercontent.com/ehassett/tfvm/master/install.sh | bash
 ```
 
 #### Go users
 Install latest with `go install` (or substitute a version):
 ```bash
-go install github.com/ethanhassett/tfvm@latest
+go install github.com/ehassett/tfvm@latest
 ```
 | :warning: Important Note                                         |
 | :--------------------------------------------------------------- |
@@ -86,8 +86,8 @@ Contributions to this project are welcome and much appreciated!
 ### Development
 
 1. Use Golang version `1.16`.
-2. Fork [this repo](https://github.com/ethanhassett/tfvm).
+2. Fork [this repo](https://github.com/ehassett/tfvm).
 3. Commit and push your changes, using proper [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/).
 4. Open a Pull Request, rebasing against `master` if needed.
 
-Bugs, feature requests, and comments are more than welcome in the [issues](https://github.com/ethanhassett/tfvm/issues).
+Bugs, feature requests, and comments are more than welcome in the [issues](https://github.com/ehassett/tfvm/issues).

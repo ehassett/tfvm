@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ethanhassett/tfvm/internal/helper"
+	"github.com/ehassett/tfvm/internal/helper"
 )
 
 // ListCommand is a Command that lists all installed versions of Terraform.
