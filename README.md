@@ -2,7 +2,8 @@
 
 [![Version](https://img.shields.io/github/v/release/ehassett/tfvm)](https://github.com/ehassett/tfvm/releases)
 [![MIT License](https://img.shields.io/github/license/ehassett/tfvm)](https://github.com/ehassett/tfvm/blob/main/LICENSE)
-[![ci](https://github.com/ehassett/tfvm/actions/workflows/release.yaml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/release.yaml)
+[![tests](https://github.com/ehassett/tfvm/actions/workflows/test.yml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/test.yml)
+[![release](https://github.com/ehassett/tfvm/actions/workflows/release.yml/badge.svg)](https://github.com/ehassett/tfvm/actions/workflows/release.yml)
 
 > A Terraform Version Manager written in Go
 
