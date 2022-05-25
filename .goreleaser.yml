@@ -38,3 +38,19 @@ brews:
       system "#{bin}/tfvm --help"
     install: |
       bin.install "tfvm"
+
+scoop:
+  bucket:
+    owner: ehassett
+    name: tfvm
+    branch: master
+
+  commit_author:
+    name: goreleaserbot
+    email: bot@goreleaser.com
+
+  commit_msg_template: "chore: scoop update for {{ .ProjectName }} {{ .Tag }}"
+
+  homepage: "https://github.com/ehassett/tfvm"
+  description: "A Terraform version manager written in Go"
+  license: MIT
