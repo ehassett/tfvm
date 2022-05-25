@@ -1,4 +1,4 @@
-name: stale
+name: Check Stale Issues/PRs
 
 on:
   schedule:

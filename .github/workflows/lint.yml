@@ -1,14 +1,35 @@
-name: lint
+name: Lint PR
 on:
   pull_request:
-    types: [ assigned, opened, synchronize, reopened ]
+    types: [assigned, opened, edited, synchronize, reopened]
 
 jobs:
-  commitlint:
-    name: Lint commits
+  commit:
+    if: (github.actor!= 'dependabot[bot]') && (contains(github.head_ref, 'dependabot/github_actions/') == false)
+    name: Lint Commits
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v4
+
+  branch:
+    if: (github.actor!= 'dependabot[bot]') && (contains(github.head_ref, 'dependabot/github_actions/') == false)
+    name: Lint Branch Name
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lekterable/branchlint-action@1.2.0
+        with:
+          error: 'Branch name must start with `fix/`, `feat/`, or `release/`.'
+          allowed: |
+            /(release|feat|fix)\/[a-zA-Z0-9-]*[a-zA-Z0-9]/
+  title:
+    if: (github.actor!= 'dependabot[bot]') && (contains(github.head_ref, 'dependabot/github_actions/') == false)
+    name: Lint PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
