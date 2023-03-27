@@ -19,7 +19,7 @@ jobs:
     name: Lint Branch Name
     runs-on: ubuntu-latest
     steps:
-      - uses: lekterable/branchlint-action@1.2.0
+      - uses: lekterable/branchlint-action@2.0.0
         with:
           error: 'Branch name must start with `fix/`, `feat/`, or `release/`.'
           allowed: |
