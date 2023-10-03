@@ -7,9 +7,14 @@
 
 > A Terraform Version Manager written in Go
 
+# Deprecated
+
+This project has been deprecated and archived at v2.0.0. It is recommended to use [tfswitch](https://tfswitch.warrensbox.com/) as a replacement.
+
 ## Table of Contents
 
 - [tfvm](#tfvm)
+- [Deprecated](#deprecated)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [How it Works](#how-it-works)
